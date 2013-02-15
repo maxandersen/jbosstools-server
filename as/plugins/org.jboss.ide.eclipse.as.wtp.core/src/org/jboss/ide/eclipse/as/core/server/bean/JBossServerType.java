@@ -348,17 +348,15 @@ public class JBossServerType implements IJBossToolingConstants {
 				Properties p = new Properties();
 				p.load(new FileInputStream(productConf.toFile()));
 				String product = (String) p.get("slot"); //$NON-NLS-1$
-				if("eap".equals(product)) { //$NON-NLS-1$
-					IPath eapDir = rootPath.append("modules/org/jboss/as/product/eap/dir/META-INF"); //$NON-NLS-1$
-					if( eapDir.toFile().exists()) {
-						IPath manifest = eapDir.append("MANIFEST.MF"); //$NON-NLS-1$
-						Properties p2 = new Properties();
-						p2.load(new FileInputStream(manifest.toFile()));
-						String type = p2.getProperty("JBoss-Product-Release-Name"); //$NON-NLS-1$
-						String version = p2.getProperty("JBoss-Product-Release-Version"); //$NON-NLS-1$
-						if( "EAP".equals(type) && version.startsWith(versionPrefix)) //$NON-NLS-1$
-							return version;
-					}
+				IPath eapDir = rootPath.append("modules/org/jboss/as/product/" + slot + "eap/dir/META-INF"); //$NON-NLS-1$
+				if( eapDir.toFile().exists()) {
+				    IPath manifest = eapDir.append("MANIFEST.MF"); //$NON-NLS-1$
+				    Properties p2 = new Properties();
+				    p2.load(new FileInputStream(manifest.toFile()));
+				    String type = p2.getProperty("JBoss-Product-Release-Name"); //$NON-NLS-1$
+				    String version = p2.getProperty("JBoss-Product-Release-Version"); //$NON-NLS-1$
+				    if( version.startsWith(versionPrefix)) //$NON-NLS-1$
+					return version;
 				}
 			} catch(IOException ioe) {
 				// I would let it fall through, but hudson doesn't like empty catch blocks
