@@ -37,6 +37,8 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tychoVersion}</version>
+				<useUIHarness>false</useUIHarness>
+				<useUIThread>false</useUIThread>
 				<configuration>
 					<testSuite>org.jboss.tools.as.test.core</testSuite>
 					<testClass>org.jboss.tools.as.test.core.ASToolsTestSuite</testClass>
